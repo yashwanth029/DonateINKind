@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donate Item | DonateINkind</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+
+<div class="page-center">
+  <div class="container">
+    <h2>Donate an Item</h2>
+
+   <form method="POST" action="{{ url_for('donate') }}" enctype="multipart/form-data">
+
+  <input type="text" name="item_name" placeholder="Item Name" required>
+
+  <select name="item_type" required>
+    <option value="">Select Item Type</option>
+    <option>Clothes</option>
+    <option>Books</option>
+    <option>Electronics</option>
+    <option>Furniture</option>
+    <option>Other</option>
+  </select>
+
+  <textarea name="description" placeholder="Item Description" required></textarea>
+
+  <input type="text" name="contact" placeholder="Contact Number" required>
+
+  <textarea name="address" placeholder="Pickup Address" required></textarea>
+
+  <label class="upload-box">
+    Upload Item Image
+    <input type="file" name="image" accept="image/*" hidden>
+  </label>
+
+  <button type="submit">Donate Item</button>
+</form>
+
+
+
+    <a href="{{ url_for('home') }}">← Back to Home</a>
+
+  </div>
+</div>
+
+<script>
+function submitDonation(e) {
+  e.preventDefault();
+  alert("Item donated successfully! (Frontend only)");
+  window.location.href = "home.html";
+}
+</script>
+
+</body>
+</html>
