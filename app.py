@@ -10,12 +10,19 @@ app.secret_key = "donateinkind_secret_key"
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # ---------------- DATABASE ----------------
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# Ensure instance folder exists
+instance_path = os.path.join(BASE_DIR, "instance")
+os.makedirs(instance_path, exist_ok=True)
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-    BASE_DIR, "instance", "donateinkind.db"
+    instance_path, "donateinkind.db"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+
 
 # ---------------- UPLOAD CONFIG ----------------
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads")
@@ -202,3 +209,4 @@ with app.app_context():
 # ---------------- RUN APP ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
