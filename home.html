@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home | DonateINkind</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="home-header">
+  <a href="{{ url_for('home') }}" class="home-logo"><h2>DonateINkind</h2></a>
+
+
+  <div class="header-actions">
+    <!-- Search -->
+    <form method="GET" action="{{ url_for('home') }}" class="search-form">
+      <input
+        type="text"
+        name="q"
+        placeholder="Search..."
+        value="{{ request.args.get('q', '') }}"
+      >
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <!-- Donate -->
+    <a href="{{ url_for('donate') }}" class="donate-btn">Donate</a>
+
+
+    <!-- Logout -->
+    <a href="{{ url_for('logout') }}" class="donate-btn logout-btn">Logout</a>
+
+  </div>
+</header>
+
+{% if error %}
+  <p style="color: red; text-align: center; margin-top: 10px;">
+    {{ error }}
+  </p>
+{% endif %}
+
+
+<section class="items">
+
+  {% if items %}
+    {% for item in items %}
+      <div class="item">
+
+        {% if item.image %}
+          <img
+            src="{{ url_for('static', filename='uploads/' + item.image) }}"
+            style="width:100%; border-radius:8px; margin-bottom:10px;"
+          >
+        {% endif %}
+
+        <h3>{{ item.name }}</h3>
+        <small>Category: {{ item.item_type }}</small>
+
+        <p>{{ item.description }}</p>
+
+        <p><strong>Contact:</strong> {{ item.contact }}</p>
+        <p><strong>Address:</strong> {{ item.address }}</p>
+
+        {% if session.get('role') == 'ngo' %}
+          <form method="POST" action="{{ url_for('remove_item', item_id=item.id) }}">
+            <button style="background:#c0392b;">Mark as Collected</button>
+          </form>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+
+  {% else %}
+    <div class="no-results">
+      <h3>No results found</h3>
+      <p>Try a different keyword or click <strong>DonateINkind</strong> to return home.</p>
+    </div>
+  {% endif %}
+
+</section>
+
+
+
+</body>
+</html>

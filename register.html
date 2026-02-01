@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register | DonateINkind</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="auth-center">
+  <div class="auth-box">
+
+    <h2>Create Account</h2>
+    <p class="auth-subtext">
+      Join DonateINkind and start making a difference today.
+    </p>
+
+    <form method="POST" action="{{ url_for('register') }}">
+
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        required
+      >
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+      >
+
+      <select name="role" required>
+        <option value="">Select Role</option>
+        <option value="user">User (Donor)</option>
+        <option value="ngo">NGO</option>
+      </select>
+
+      <button type="submit">Register</button>
+
+    </form>
+
+    <p class="auth-link">
+      Already have an account?
+      <a href="{{ url_for('login') }}">Login</a>
+    </p>
+
+  </div>
+</div>
+
+</body>
+</html>
